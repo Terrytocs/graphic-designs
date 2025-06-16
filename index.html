@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+        :root{
+            --black-bg-1:#010101;
+            --black-bg-2:#060701;
+            --main-yellow:#FBE214;
+            --font-size:50px;
+            --font-family:'Roboto Condensed',Arial, Helvetica, sans-serif;
+        }
+        *{
+            box-sizing:border-box;
+        }
+        canvas{
+            width:1284px;
+            height:1225px;
+        }
+
+        .text{
+            position:absolute;
+            top:50px;
+            font-size:var(--font-size);
+            font-family:var(--font-family);
+            font-weight: 600;
+            margin-left:20px;
+            line-height:120px;
+        }
+
+        .container{
+            padding:0;
+            margin:0;
+            position:relative;
+            width:1284px;
+            height:1225px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .heading{
+            color:var(--main-yellow);
+        }
+
+        .big{
+            font-size:calc(var(--font-size)*5);
+            font-weight: bold;
+        }
+
+        .big2{
+            font-size:calc(var(--font-size)*3);
+            font-weight: bold;
+        }
+
+        .top-banner{
+            font-family: var(--font-family);
+            position:absolute;
+            top:0;
+            background-color: var(--main-yellow);
+            color:var(--black-bg-2);
+            width:100%;
+            padding-left:20px;
+            margin:0;
+            padding-inline:20px;
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo{
+            position:absolute;
+            height:100px;
+            left: 50%;
+            top:50px;
+            transform:translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <input type="color">
+    <div style="display:none">
+        <img src="./img/Rhino20500020Gal20Tank-01-700x700.png" id="_tank">
+        <img src="./img/03c48bc4-3dbd-488f-9bba-30916df3dff3.png" id="_rhino">
+        <img src="./img/Rhino_650_gallon_CT_dark-300x419.png" id="_tank2">
+        
+    </div>
+    <div class="container">
+        <img src="./img/Rhino-Logos-FAW-1.png" class="logo">
+        <canvas id="pic"></canvas>
+        <p class="top-banner">
+            www.rhinojamaica.com
+            <img src="./img/proud-jamaican.png" height="30px" id="_banner">
+        </p>
+        <div class="text">
+            <!--
+            <h1 class="heading">
+                <span class="big">D</span>URABILITY <br>YOU CAN <br>TRUST
+            </h1>
+            -->
+        </div>
+    </div>
+    <script>
+        const canvas=document.getElementById("pic");
+        const ctx=canvas.getContext("2d");
+        const tank=document.getElementById("_tank");
+        const rhino=document.getElementById("_rhino");
+        const tank2=document.getElementById("_tank2");
+        const banner=document.getElementById("_banner")
+        canvas.width=1284;
+        canvas.height=1225;
+        halfWidth=Math.floor(canvas.width/2);
+        halfHeight=Math.floor(canvas.height/2);
+        const tankScale=0.9;
+        const rhinoScale=0.8;
+        const xOffset=50;
+        const yOffset=30;
+        
+        tank2.onload=()=>{
+            /*ctx.fillStyle="#010101";
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle="#FBE214";
+            ctx.fillRect(0,halfHeight,canvas.width,canvas.height);*/
+            var grd=ctx.createLinearGradient(0,0,0,canvas.height*2);
+            grd.addColorStop(0,"#010101");
+            grd.addColorStop(1,"#FBE214");
+            ctx.fillStyle=grd;
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.save();
+            ctx.globalAlpha=1;
+            ctx.filter="blur(0.5px) grayscale(10%)";
+            ctx.drawImage(tank2,0,0,tank2.width,tank2.height,halfWidth-xOffset-(Math.floor(tank2.width/2))*tankScale,canvas.height-48-yOffset-(tank2.height)*tankScale,tank2.width*tankScale,tank2.height*tankScale);
+            ctx.restore();
+            ctx.fillStyle="#FBE214";
+            ctx.fillRect(halfWidth+100,halfHeight-300,520,250);
+            ctx.save();
+            ctx.globalAlpha=1;
+            ctx.filter="blur(0.5px) grayscale(25%)";
+            ctx.drawImage(rhino,0,0,rhino.width,rhino.height,halfWidth+190-xOffset-(Math.floor(rhino.width/2))*rhinoScale,canvas.height+110-yOffset-tank2.height*tankScale-rhino.height*rhinoScale,rhino.width*rhinoScale,rhino.height*rhinoScale);
+            ctx.restore();
+            ctx.textBaseline="hanging";
+            ctx.fillStyle="#FBE214";
+            console.log(ctx)
+            ctx.font="bold 200px Roboto";
+            ctx.fillText("D",15,115)
+            ctx.font="bold 100px Roboto";
+            ctx.fillText("URABILITY",140,190)
+            ctx.fillText("YOU CAN",25,310)
+            ctx.fillText("TRUST",25,430)
+            ctx.fillStyle="#060701";
+            ctx.font="bold 30px Roboto"
+            ctx.fillText("CONTACT US",25,canvas.height-300)
+            ctx.fillStyle="#222";
+            ctx.fillText("Unit 4 C, 76 Marcus",25,canvas.height-260);
+            ctx.fillText("Garvey Dr,",25,canvas.height-220);
+            ctx.fillText("Kingston 13, Jamaica.",25,canvas.height-180);
+            ctx.fillText("(876) 901-8265",25,canvas.height-140);
+            ctx.fillText("(876) 901-0023",25,canvas.height-100);
+        }
+        
+        
+    </script>
+</body>
+</html>
